@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Houston.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/mission-control.ico"
         Title="Houston">
 
     <Design.DataContext>
@@ -15,6 +15,9 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+        <Image Source="../Assets/mission-control.ico" Width="512" Height="512"/>
+        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold"/>
+    </StackPanel>
 
 </Window>
