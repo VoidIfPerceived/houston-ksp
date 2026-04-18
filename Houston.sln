@@ -5,8 +5,6 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Houston", "Houston.csproj", "{1B07768E-06B8-BF19-5365-A1EA334BAC71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Houston-Code-Only", "Houston-Code-Only\Houston-Code-Only.csproj", "{1268BB49-AAD5-4503-A467-ED36B97A1E05}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,18 +27,6 @@ Global
 		{1B07768E-06B8-BF19-5365-A1EA334BAC71}.Release|x64.Build.0 = Release|Any CPU
 		{1B07768E-06B8-BF19-5365-A1EA334BAC71}.Release|x86.ActiveCfg = Release|Any CPU
 		{1B07768E-06B8-BF19-5365-A1EA334BAC71}.Release|x86.Build.0 = Release|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Debug|x64.Build.0 = Debug|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Debug|x86.Build.0 = Debug|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Release|x64.ActiveCfg = Release|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Release|x64.Build.0 = Release|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Release|x86.ActiveCfg = Release|Any CPU
-		{1268BB49-AAD5-4503-A467-ED36B97A1E05}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
