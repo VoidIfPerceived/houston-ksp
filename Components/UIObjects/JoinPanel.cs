@@ -8,13 +8,13 @@ using System;
 
 namespace Houston.Components.UIObjects;
 
-public class SettingsPanel : UserControl
+public class JoinPanel : UserControl
 {
     private Button ReturnButton { get; set; }
 
     public Action OnReturnClicked { get; set; }
 
-    public SettingsPanel()
+    public JoinPanel()
     {
         this.ReturnButton = new Button();
         this.OnReturnClicked = () => {};
@@ -53,7 +53,7 @@ public class SettingsPanel : UserControl
         };
         var headerLabel = new TextBlock
         {
-            Text = "Settings",
+            Text = "Join",
             FontSize = 24,
             FontWeight = Avalonia.Media.FontWeight.Bold,
         };

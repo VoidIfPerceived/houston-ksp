@@ -13,10 +13,21 @@ public class SelectionPanel : UserControl
     private Button JoinButton { get; set; }
 
     private Button SettingsButton { get; set; }
+
     public Action OnSettingsClicked { get; set; }
+
+    public Action OnJoinClicked { get; set; }
+
+    public Action OnHostClicked { get; set; }
 
     public SelectionPanel()
     {
+        this.HostButton = new Button();
+        this.OnHostClicked = () => {};
+        this.JoinButton = new Button();
+        this.OnJoinClicked = () => {};
+        this.SettingsButton = new Button();
+        this.OnSettingsClicked = () => {};
         InitializeComponent();
     }
 
@@ -45,7 +56,7 @@ public class SelectionPanel : UserControl
         };
 
         // Create Pilot button
-        HostButton = new Button
+        this.HostButton = new Button
         {
             Content = "Host Server",
             Width = 200,
@@ -54,10 +65,10 @@ public class SelectionPanel : UserControl
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
         };
-        HostButton.Click += (sender, e) => OnHostButtonClicked();
+        this.HostButton.Click += (sender, e) => OnHostButtonClicked();
 
         // Create Mission Control button
-        JoinButton = new Button
+        this.JoinButton = new Button
         {
             Content = "Join Server",
             Width = 200,
@@ -66,9 +77,9 @@ public class SelectionPanel : UserControl
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
         };
-        JoinButton.Click += (sender, e) => OnJoinButtonClicked();
+        this.JoinButton.Click += (sender, e) => OnJoinButtonClicked();
 
-        SettingsButton = new Button
+        this.SettingsButton = new Button
         {
             Content = "Settings",
             Width = 200,
@@ -77,12 +88,12 @@ public class SelectionPanel : UserControl
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
         };
-        SettingsButton.Click += (sender, e) => OnSettingsButtonClicked();
+        this.SettingsButton.Click += (sender, e) => OnSettingsButtonClicked();
 
         // Add buttons to content panel
-        contentPanel.Children.Add(HostButton);
-        contentPanel.Children.Add(JoinButton);
-        contentPanel.Children.Add(SettingsButton);
+        contentPanel.Children.Add(this.HostButton);
+        contentPanel.Children.Add(this.JoinButton);
+        contentPanel.Children.Add(this.SettingsButton);
 
         // Create overlay panel for the buttons
         var overlayPanel = new Panel();
@@ -98,18 +109,20 @@ public class SelectionPanel : UserControl
     private void OnSettingsButtonClicked()
     {
         System.Diagnostics.Debug.WriteLine("Settings Button Pressed");
-        OnSettingsClicked?.Invoke();
+        this.OnSettingsClicked?.Invoke();
     }
 
     private void OnJoinButtonClicked()
     {
         // TODO: Handle join selection
         System.Diagnostics.Debug.WriteLine("Pilot selected");
+        this.OnJoinClicked?.Invoke();
     }
 
     private void OnHostButtonClicked()
     {
         // TODO: Handle host selection
         System.Diagnostics.Debug.WriteLine("Mission Control selected");
+        this.OnHostClicked?.Invoke();
     }
 }

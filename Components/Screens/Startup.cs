@@ -9,8 +9,12 @@ namespace Houston.Components.Screens;
 
 public class Startup : Window
 {
-    private SelectionPanel selectionPanel;
-    private SettingsPanel settingsPanel;
+    private readonly SelectionPanel selectionPanel;
+    private readonly SettingsPanel settingsPanel;
+
+    private readonly JoinPanel joinPanel;
+
+    private readonly HostPanel hostPanel;
 
     public Startup()
     {
@@ -18,13 +22,40 @@ public class Startup : Window
         Width = 1024;
         Height = 768;
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        settingsPanel = new SettingsPanel();
-        selectionPanel = new SelectionPanel();
+        this.settingsPanel = new SettingsPanel();
+        this.selectionPanel = new SelectionPanel();
+        this.joinPanel = new JoinPanel();
+        this.hostPanel = new HostPanel();
         
         // Set up the callback for the settings button
-        selectionPanel.OnSettingsClicked += () =>
+        this.selectionPanel.OnSettingsClicked += () =>
         {
-            Content = settingsPanel;
+            Content = this.settingsPanel;
+        };
+
+        this.selectionPanel.OnJoinClicked += () =>
+        {
+            Content = this.joinPanel;
+        };
+
+        this.selectionPanel.OnHostClicked += () =>
+        {
+            Content = this.hostPanel;
+        };
+
+        this.settingsPanel.OnReturnClicked += () =>
+        {
+            Content = this.selectionPanel;
+        };
+
+        this.joinPanel.OnReturnClicked += () =>
+        {
+            Content = this.selectionPanel;
+        };
+
+        this.hostPanel.OnReturnClicked += () =>
+        {
+            Content = this.selectionPanel;
         };
         
         InitializeComponent();
@@ -36,7 +67,7 @@ public class Startup : Window
         CanResize = true;
         ShowInTaskbar = true;
         // Add the selection panel as window content
-        Content = selectionPanel;
+        Content = this.selectionPanel;
     }
 
     public static void Render(IClassicDesktopStyleApplicationLifetime desktop)
