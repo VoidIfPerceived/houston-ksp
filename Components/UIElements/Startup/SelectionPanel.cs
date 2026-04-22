@@ -5,7 +5,7 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media.Imaging;
 using System;
 
-namespace Houston.Components.UIObjects;
+namespace Houston.Components.UIElements.Startup;
 
 public class SelectionPanel : UserControl
 {

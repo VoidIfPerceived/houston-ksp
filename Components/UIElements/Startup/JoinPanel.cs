@@ -6,15 +6,15 @@ using Avalonia.Media.Imaging;
 using Houston.Components.Screens;
 using System;
 
-namespace Houston.Components.UIObjects;
+namespace Houston.Components.UIElements.Startup;
 
-public class HostPanel : UserControl
+public class JoinPanel : UserControl
 {
     private Button ReturnButton { get; set; }
 
     public Action OnReturnClicked { get; set; }
 
-    public HostPanel()
+    public JoinPanel()
     {
         this.ReturnButton = new Button();
         this.OnReturnClicked = () => {};
@@ -53,7 +53,7 @@ public class HostPanel : UserControl
         };
         var headerLabel = new TextBlock
         {
-            Text = "Host",
+            Text = "Join",
             FontSize = 24,
             FontWeight = Avalonia.Media.FontWeight.Bold,
         };

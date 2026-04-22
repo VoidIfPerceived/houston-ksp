@@ -6,7 +6,7 @@ using Avalonia.Media.Imaging;
 using Houston.Components.Screens;
 using System;
 
-namespace Houston.Components.UIObjects;
+namespace Houston.Components.UIElements.Startup;
 
 public class SettingsPanel : UserControl
 {

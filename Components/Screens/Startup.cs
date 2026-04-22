@@ -1,78 +1,98 @@
-
-using System.Security.Cryptography.X509Certificates;
+using System;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using Houston.Components.UIObjects;
-using Tmds.DBus.Protocol;
+using Houston.Components.UIElements.Startup;
+using Houston.Components.Connections;
+using Houston.Services;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Houston.Components.Screens;
 
 public class Startup : Window
 {
-    private readonly SelectionPanel selectionPanel;
-    private readonly SettingsPanel settingsPanel;
+    private static SelectionPanel selectionPanel;
+    private static SettingsPanel settingsPanel;
+    private static JoinPanel joinPanel;
+    private static HostPanel hostPanel;
 
-    private readonly JoinPanel joinPanel;
-
-    private readonly HostPanel hostPanel;
-
-    public Startup()
+    public static void InitializeContent(Window window)
     {
-        Title = "Houston";
-        Width = 1024;
-        Height = 768;
-        WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        this.settingsPanel = new SettingsPanel();
-        this.selectionPanel = new SelectionPanel();
-        this.joinPanel = new JoinPanel();
-        this.hostPanel = new HostPanel();
-        
-        // Set up the callback for the settings button
-        this.selectionPanel.OnSettingsClicked += () =>
+        // Create all panels
+        selectionPanel = new SelectionPanel();
+        settingsPanel = new SettingsPanel();
+        joinPanel = new JoinPanel();
+        hostPanel = new HostPanel();
+
+        // Set up callbacks for screen navigation
+        selectionPanel.OnSettingsClicked += () =>
         {
-            Content = this.settingsPanel;
+            window.Content = settingsPanel;
         };
 
-        this.selectionPanel.OnJoinClicked += () =>
+        selectionPanel.OnJoinClicked += () =>
         {
-            Content = this.joinPanel;
+            window.Content = joinPanel;
         };
 
-        this.selectionPanel.OnHostClicked += () =>
+        selectionPanel.OnHostClicked += () =>
         {
-            Content = this.hostPanel;
+            window.Content = hostPanel;
         };
 
-        this.settingsPanel.OnReturnClicked += () =>
+        settingsPanel.OnReturnClicked += () =>
         {
-            Content = this.selectionPanel;
+            window.Content = selectionPanel;
         };
 
-        this.joinPanel.OnReturnClicked += () =>
+        joinPanel.OnReturnClicked += () =>
         {
-            Content = this.selectionPanel;
+            window.Content = selectionPanel;
         };
 
-        this.hostPanel.OnReturnClicked += () =>
+        hostPanel.OnSubmitClicked += () =>
         {
-            Content = this.selectionPanel;
+            try
+            {
+                Logger.LogInfo("=== Host Connection Attempt Started ===");
+                
+                object[] hostdata = (object[])hostPanel.GetHostData();
+                var hostname = (String)hostdata[0];
+                var ipAddressString = (String)hostdata[1];
+                var rpcport = int.Parse((String)hostdata[2]);
+                var streamport = int.Parse((String)hostdata[3]);
+                
+                Logger.LogInfo($"Host Data - Hostname: {hostname}, IP: {ipAddressString}, RPC Port: {rpcport}, Stream Port: {streamport}");
+                
+                // Resolve hostname or IP address
+                Logger.LogDebug($"Resolving hostname/IP: {ipAddressString}");
+                var addresses = Dns.GetHostAddresses(ipAddressString);
+                var ipaddress = addresses.Length > 0 ? addresses[0] : IPAddress.Parse(ipAddressString);
+                Logger.LogInfo($"Resolved IP Address: {ipaddress}");
+                
+                Logger.LogInfo($"Attempting to connect to {ipaddress}:{rpcport} (Stream: {streamport})");
+                var krpc = GameConnection.KRPCConnection(ipaddress: ipaddress.ToString(), rpcport: rpcport.ToString(), streamport: streamport.ToString());
+                Logger.LogInfo("Connection successful!");
+            }
+            catch (SocketException ex)
+            {
+                Logger.LogError($"Socket connection failed: {ex.Message}", ex);
+                Logger.LogWarning("Returning to host selection screen due to connection failure");
+                window.Content = hostPanel;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Unexpected error during connection: {ex.Message}", ex);
+                Logger.LogWarning("Returning to host selection screen due to error");
+                window.Content = hostPanel;
+            }
         };
-        
-        InitializeComponent();
-    }
 
-    private void InitializeComponent()
-    {
-        // Basic window setup
-        CanResize = true;
-        ShowInTaskbar = true;
-        // Add the selection panel as window content
-        Content = this.selectionPanel;
-    }
+        hostPanel.OnReturnClicked += () =>
+        {
+            window.Content = selectionPanel;
+        };
 
-    public static void Render(IClassicDesktopStyleApplicationLifetime desktop)
-    {
-        var startupWindow = new Startup();
-        desktop.MainWindow = startupWindow;
+        // Set initial content
+        window.Content = selectionPanel;
     }
 }

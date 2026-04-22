@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Houston.Components.Screens;
@@ -16,7 +17,20 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            Startup.Render(desktop);
+            var mainWindow = new Window
+            {
+                Title = "Houston",
+                Width = 1024,
+                Height = 768,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                CanResize = true,
+                ShowInTaskbar = true
+            };
+
+            // Initialize startup with the persistent window
+            Startup.InitializeContent(mainWindow);
+            
+            desktop.MainWindow = mainWindow;
         }
 
         base.OnFrameworkInitializationCompleted();
