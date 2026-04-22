@@ -10,18 +10,14 @@ namespace Houston.Components.Screens;
 
 public class Startup : Window
 {
-    private static SelectionPanel selectionPanel;
-    private static SettingsPanel settingsPanel;
-    private static JoinPanel joinPanel;
-    private static HostPanel hostPanel;
 
     public static void InitializeContent(Window window)
     {
         // Create all panels
-        selectionPanel = new SelectionPanel();
-        settingsPanel = new SettingsPanel();
-        joinPanel = new JoinPanel();
-        hostPanel = new HostPanel();
+        var selectionPanel = new SelectionPanel();
+        var settingsPanel = new SettingsPanel();
+        var joinPanel = new JoinPanel();
+        var hostPanel = new HostPanel();
 
         // Set up callbacks for screen navigation
         selectionPanel.OnSettingsClicked += () =>

@@ -41,9 +41,13 @@ public class HostPanel : UserControl
     public HostPanel()
     {
         this.HostName = "";
+        this.HostnameInput = new TextBox();
         this.IPAddress = "";
+        this.IPAddressInput = new TextBox();
         this.RPCPort = "";
+        this.RPCPortInput = new TextBox();
         this.StreamPort = "";
+        this.StreamPortInput = new TextBox();
         this.SubmitButton = new Button();
         this.ReturnButton = new Button();
         this.OnReturnClicked = () => {};
